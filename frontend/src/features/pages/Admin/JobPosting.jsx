@@ -5,6 +5,7 @@ import {
   CardContent,
   Chip,
   Divider,
+  Drawer,
   Link,
   Typography,
 } from "@mui/material";
@@ -18,6 +19,10 @@ import {
   getJobApplications,
 } from "../../../app/store/jobSlice";
 import { Space, Spin } from "antd";
+import ChatBox from "../../components/ChatBox";
+import ApplicantDetail from "../../components/Admin/ApplicantDetail";
+
+let anchor = "right";
 
 const JobPosting = () => {
   const { id } = useParams();
@@ -97,7 +102,9 @@ const JobPosting = () => {
             <Typography variant="body1" gutterBottom>
               {job?.description}
             </Typography>
-            <Card>
+            <Card
+              sx={{ marginTop: "15px", maxHeight: "500px", overflow: "scroll" }}
+            >
               <CardContent>
                 {jobApplicants?.length == 0 && (
                   <Typography
@@ -113,6 +120,13 @@ const JobPosting = () => {
                     <ApplicantCard key={applicant.id} applicant={applicant} />
                   );
                 })}
+              </CardContent>
+            </Card>
+            <Card
+              sx={{ marginTop: "15px", maxHeight: "500px", overflow: "scroll" }}
+            >
+              <CardContent>
+                <ChatBox job={job} />
               </CardContent>
             </Card>
             <div className="flex mt-[20px]">

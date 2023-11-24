@@ -21,7 +21,7 @@ const ChatBox = ({ job }) => {
     }
 
     return () => {
-      clearComments();
+      dispatch(clearComments());
     };
   }, [dispatch, job, user]);
 

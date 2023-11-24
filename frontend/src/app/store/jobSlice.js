@@ -1,24 +1,49 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import agent from "../api/agent";
 import { Router } from "../routes/Routes";
+import { toast } from "react-toastify";
+import { PagingParams } from "../models/pagination";
 
 let initialState = {
   jobs: [],
+  searchedJobs: [],
   job: null,
   loading: false,
   error: null,
   userJobApplications: [],
   jobApplicants: [],
+  pagination: null,
+  pagingParams: new PagingParams(),
 };
 
-export const getJobs = createAsyncThunk("job/getJobs", async () => {
+export const getJobs = createAsyncThunk("job/getJobs", async (_, thunkAPI) => {
+  const currentState = thunkAPI.getState();
+  const params = new URLSearchParams();
+  params.append(
+    "pageNumber",
+    currentState.job.pagingParams.pageNumber.toString()
+  );
+  params.append("pageSize", currentState.job.pagingParams.pageSize.toString());
+
   try {
-    const response = await agent.Jobs.list();
+    const response = await agent.Jobs.list(params);
     return response;
   } catch (error) {
     throw error;
   }
 });
+
+export const getSearchedJobs = createAsyncThunk(
+  "job/getSearchedJobs",
+  async (term) => {
+    try {
+      const response = await agent.Jobs.search(term);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 export const applyForJob = createAsyncThunk("job/apply", async (value) => {
   try {
@@ -104,7 +129,11 @@ export const updateJob = createAsyncThunk("/job/updateJob", async (body) => {
 export const jobSlice = createSlice({
   name: "jobs",
   initialState,
-  reducer: {},
+  reducers: {
+    updatePagingParams: (state, action) => {
+      state.pagingParams = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     const commonPending = (state) => {
@@ -114,13 +143,37 @@ export const jobSlice = createSlice({
 
     const commonFulfilled = (state, action) => {
       state.loading = false;
-      state.jobs = action.payload;
+      //state.jobs = state.jobs.unshift(...action.payload.data);
+      //state.jobs = [...state.jobs, ...action.payload.data];
+      state.jobs = [
+        ...state.jobs,
+        ...action.payload.data.filter(
+          (obj) => !state.jobs.some((existingObj) => existingObj.id === obj.id)
+        ),
+      ];
+      state.pagination = action.payload.pagination;
     };
 
     const commonRejected = (state, action) => {
       state.loading = false;
       //state.error = action.error.message;
     };
+
+    const getSearchedJobsPending = (state) => {
+      state.loading = true;
+      state.error = null;
+    };
+
+    const getSearchedJobsFulfilled = (state, action) => {
+      state.loading = false;
+      state.searchedJobs = action.payload.data;
+    };
+
+    const getSearchedJobsRejected = (state, action) => {
+      state.loading = false;
+      //state.error = action.error.message;
+    };
+
     const applicationPending = (state) => {
       state.loading = true;
       state.error = null;
@@ -137,7 +190,6 @@ export const jobSlice = createSlice({
         }
         return { ...job };
       });
-      console.log("The cureent jobs are: " + state.jobs);
     };
 
     const applicationRejected = (state, action) => {
@@ -179,10 +231,12 @@ export const jobSlice = createSlice({
 
     const createJobFulfilled = (state, action) => {
       state.loading = false;
+      toast.success("Job has been created successfully");
     };
 
     const createJobRejected = (state, action) => {
       state.loading = false;
+      state.error = action.payload.message;
     };
 
     const getJobApplicationsPending = (state, action) => {
@@ -240,6 +294,9 @@ export const jobSlice = createSlice({
       .addCase(getJobs.pending, commonPending)
       .addCase(getJobs.fulfilled, commonFulfilled)
       .addCase(getJobs.rejected, commonRejected)
+      .addCase(getSearchedJobs.pending, getSearchedJobsPending)
+      .addCase(getSearchedJobs.fulfilled, getSearchedJobsFulfilled)
+      .addCase(getSearchedJobs.rejected, getSearchedJobsRejected)
       .addCase(applyForJob.pending, applicationPending)
       .addCase(applyForJob.fulfilled, applicationFulfilled)
       .addCase(applyForJob.rejected, applicationRejected)
@@ -266,5 +323,7 @@ export const jobSlice = createSlice({
       .addCase(updateJob.rejected, updateJobRejected);
   },
 });
+
+export const { updatePagingParams, dance } = jobSlice.actions;
 
 export default jobSlice.reducer;

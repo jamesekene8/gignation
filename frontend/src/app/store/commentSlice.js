@@ -70,7 +70,9 @@ export const commentSlice = createSlice({
 
     clearComments: (state) => {
       state.comments = [];
-      commentSlice.caseReducers.stopHubConnection(state);
+      hubConnection
+        ?.stop()
+        .catch((error) => console.log("Error stopping connection: ", error));
     },
   },
 

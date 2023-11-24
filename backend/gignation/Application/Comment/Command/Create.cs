@@ -56,6 +56,7 @@ namespace Application.Comment.Command
 					Author = user,
 					Job = job,
 					Body = request.Body
+
 				};
 
 				job.Comments.Add(comment);

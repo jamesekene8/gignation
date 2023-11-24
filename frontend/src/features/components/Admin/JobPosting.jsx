@@ -14,7 +14,7 @@ const JobPosting = () => {
 
   useEffect(() => {
     dispatch(getJobs());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

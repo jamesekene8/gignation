@@ -24,7 +24,7 @@ namespace Application.Profile
         public string DesiredSalary { get; set; }
         public string DesiredRole { get; set; }
         public string DesiredLocation { get; set; }
-        public Resume Resume { get; set; }
+        public Domain.Resume Resume { get; set; }
         public ICollection<Domain.Education> Educations { get; set; } = new List<Domain.Education>();
         public ICollection<Domain.Experience> Experiences { get; set; } = new List<Domain.Experience>();
 

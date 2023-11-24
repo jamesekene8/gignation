@@ -13,9 +13,10 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import { createJob } from "../../../app/store/jobSlice";
+import { createJob, getJobs } from "../../../app/store/jobSlice";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import SimpleBackdrop from "../../components/skeleton/SimpleBackDrop";
 
 const CreateJobs = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ const CreateJobs = () => {
 
     description: yup
       .string()
-      .min(3, "Too Short !")
-      .max(2000, "Too Long !")
+      .min(1000, "Too Short !")
+      .max(10000, "Too Long !")
       .required("Description is Required"),
 
     jobType: yup.string().required("Job Type is Required"),
@@ -82,9 +83,8 @@ const CreateJobs = () => {
       .required("Location is Required"),
   });
 
-  const handleSubmit = async (values, props) => {
-    dispatch(await createJob(values));
-    navigate("/admin/jobs");
+  const handleSubmit = (values, props) => {
+    dispatch(createJob(values)).then(() => navigate("/admin/jobs"));
   };
 
   return (
@@ -289,6 +289,7 @@ const CreateJobs = () => {
           );
         }}
       </Formik>
+      {/* <SimpleBackdrop loading={loading} /> */}
     </>
   );
 };

@@ -6,8 +6,6 @@ import JobPage from "./JobPage";
 const Job = () => {
   let location = useLocation();
 
-  const { jobs, loading } = useSelector((state) => state.job);
-
   if (location.pathname === "/jobs") {
     return <JobPage />;
   } else {

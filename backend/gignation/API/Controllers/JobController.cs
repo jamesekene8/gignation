@@ -10,9 +10,9 @@ namespace API.Controllers
     public class JobController : BaseApiController
 	{
 		[HttpGet]
-		public async Task<ActionResult> GetAllJobs()
+		public async Task<ActionResult> GetAllJobs([FromQuery]PagingParams param, string search = null)
 		{
-			return HandleResult(await Mediator.Send(new List.Query()));
+			return HandlePagedResult(await Mediator.Send(new List.Query { Search = search, Params = param }));
 		}
 
 		[HttpPost]

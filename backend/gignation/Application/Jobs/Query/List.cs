@@ -11,12 +11,14 @@ namespace Application.Jobs.Query
 {
 	public class List
 	{
-		public class Query : IRequest<Result<List<JobDto>>>
+		public class Query : IRequest<Result<PagedList<JobDto>>>
 		{
+			public string Search {get; set;}
 
+			public PagingParams Params { get; set;}
 		}
 
-		public class Handler : IRequestHandler<Query, Result<List<JobDto>>>
+		public class Handler : IRequestHandler<Query, Result<PagedList<JobDto>>>
 		{
 			private readonly DataContext _ctx;
 			private readonly IMapper _mapper;
@@ -28,25 +30,47 @@ namespace Application.Jobs.Query
 				_mapper = mapper;
 				_userAccessor = userAccessor;
 			}
-            public async Task<Result<List<JobDto>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<PagedList<JobDto>>> Handle(Query request, CancellationToken cancellationToken)
 			{
 				var user = _ctx.AppUsers.FirstOrDefault(x => x.UserName == _userAccessor.GetUsername());
-				
-				var jobs = await _ctx.Jobs.ProjectTo<JobDto>(_mapper.ConfigurationProvider).ToListAsync();
 
-				foreach (var job in jobs)
+				IQueryable<JobDto> query = null;
+
+				if(request.Search != null)
 				{
-					var applied = await _ctx.JobApplicants.FindAsync(user.Id, job.Id);
-					if(applied == null)
+					if(request.Search == "")
 					{
-						job.Applied = false;
-					} else
-					{
-						job.Applied = true;
+						query = _ctx.Jobs
+							.OrderBy(d => d.CreatedAt)
+							.ProjectTo<JobDto>(_mapper.ConfigurationProvider).AsQueryable();
 					}
+					query = _ctx.Jobs
+						.Where(e => e.Title.Contains(request.Search))
+						.OrderBy(d => d.CreatedAt)
+						.ProjectTo<JobDto>(_mapper.ConfigurationProvider).AsQueryable();
+				} else
+				{
+					query = _ctx.Jobs
+						.OrderBy(d => d.CreatedAt)
+						.ProjectTo<JobDto>(_mapper.ConfigurationProvider).AsQueryable();
 				}
-				
-				return Result<List<JobDto>>.Success(jobs);
+
+
+				var pagedList = await PagedList<JobDto>.CreateAsync(query, request.Params.PageNumber, request.Params.PageSize);
+
+					foreach (var job in pagedList){
+						var applied = await _ctx.JobApplicants.FindAsync(user.Id, job.Id);
+						if (applied == null)
+						{
+							job.Applied = false;
+						}
+						else
+						{
+							job.Applied = true;
+						}
+					};
+
+				return Result<PagedList<JobDto>>.Success(pagedList);
 			}
 		}
 	}

@@ -20,6 +20,8 @@ import { getCurrentUser } from "../store/accountSlice";
 import CreateJobs from "../../features/pages/Admin/CreateJobs";
 import JobPosting from "../../features/pages/Admin/JobPosting";
 import EditJobPosting from "../../features/pages/Admin/EditJobPosting";
+import Resume from "../../features/pages/profile/Resume";
+import Search from "../../features/pages/Search";
 
 const ROLES = {
   User: "Freelancer",
@@ -42,11 +44,13 @@ function App() {
         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
           <Route path="jobs" element={<Job />}>
             <Route path="applied" element={<Applied />} />
+            <Route path="search" element={<Search />} />
           </Route>
 
           <Route path="profile" element={<Profile />}>
             <Route path="overview" element={<ProfileOverview />} />
             <Route path="edit" element={<Edit />} />
+            <Route path="resume" element={<Resume />} />
           </Route>
         </Route>
 

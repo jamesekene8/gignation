@@ -15,8 +15,10 @@ import * as yup from "yup";
 import { updateProfile } from "../../../app/store/profileSlice";
 import { toast } from "react-toastify";
 
-const SUPPORTED_FORMATS = ["image/jpeg", "image/jpg", "image/png"];
-const FILE_SIZE = 524288;
+const validFileExtensions = {
+  image: ["jpg", "gif", "png", "jpeg", "svg", "webp"],
+};
+const MAX_FILE_SIZE = 524288;
 
 const EditProfileInfo = ({ profile }) => {
   const dispatch = useDispatch();
@@ -28,8 +30,19 @@ const EditProfileInfo = ({ profile }) => {
     yearsOfExperience: profile.yearsOfExperience,
     bio: profile.bio,
     country: profile.country,
-    // file: "",
+    // file: profile.image,
   };
+
+  function isValidFileType(fileName, fileType) {
+    return (
+      fileName &&
+      validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
+    );
+  }
+
+  function getAllowedExt(type) {
+    return validFileExtensions[type].map((e) => `.${e}`).toString();
+  }
 
   const YupValidation = yup.object().shape({
     firstName: yup
@@ -56,22 +69,26 @@ const EditProfileInfo = ({ profile }) => {
 
     bio: yup
       .string()
-      .min(3, "Too Short !")
-      .max(800, "Too Long !")
+      .min(200, "Too Short !")
+      .max(5000, "Too Long !")
       .required("bio is required"),
 
     file: yup
       .mixed()
-      .test(
-        "fileSize",
-        "File more than 0.5 MB not Allowed",
-        (value) => value && value.size <= 524288
-      )
-      .test(
-        "fileFormat",
-        "Unsupported Format",
-        (value) => value && SUPPORTED_FORMATS.includes(value.type)
-      ),
+      .test("is-valid-type", "Not a valid image type", (value) => {
+        if (value) {
+          return isValidFileType(value && value.name.toLowerCase(), "image");
+        } else {
+          return true;
+        }
+      })
+      .test("is-valid-size", "Max allowed size is 100KB", (value) => {
+        if (value) {
+          return value && value.size <= MAX_FILE_SIZE;
+        } else {
+          return true;
+        }
+      }),
   });
 
   const handleSubmit = async (values, props) => {
@@ -101,6 +118,7 @@ const EditProfileInfo = ({ profile }) => {
                     sx={{ width: 100, height: 100 }}
                   />
                   <TextField
+                    id="file"
                     name="file"
                     type="file"
                     fullWidth
@@ -133,6 +151,7 @@ const EditProfileInfo = ({ profile }) => {
                     error={props.errors.firstName && props.touched.firstName}
                   />
                 </Grid>
+
                 <Grid item xs={8}>
                   <Field
                     as={TextField}
@@ -143,7 +162,7 @@ const EditProfileInfo = ({ profile }) => {
                     variant="outlined"
                     margin="dense"
                     helperText={<ErrorMessage name="surname" />}
-                    error={props.errors.firstName && props.touched.firstName}
+                    error={props.errors.surname && props.touched.surname}
                   />
                 </Grid>
               </Grid>

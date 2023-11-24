@@ -56,5 +56,41 @@ namespace Infrastructure.Photos
 			var result = await _cloudinary.DestroyAsync(deleteParams);
 			return result.Result == "ok" ? result.Result : null;
 		}
+
+		public async Task<PhotoUploadResult> AddResume(IFormFile file)
+		{
+			if(file.Length > 0)
+			{
+				await using (var stream = file.OpenReadStream())
+				{
+					var uploadParams = new RawUploadParams
+					{
+						File = new FileDescription(file.FileName, stream),
+						Folder = "Resume"
+					};
+
+					var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+					if (uploadResult.Error != null)
+					{
+						throw new Exception(uploadResult.Error.Message);
+					}
+
+					return new PhotoUploadResult
+					{
+						PublicId = uploadResult.PublicId,
+						Url = uploadResult.SecureUrl.ToString(),
+					};
+
+				}
+			}
+			return null;
+		}
+
+		public async Task<string> DeleteResume(string publicId)
+		{
+			var deleteParams = new DeletionParams(publicId);
+			var result = await _cloudinary.DestroyAsync(deleteParams);
+			return result.Result == "ok" ? result.Result : null;
+		}
 	}
 }

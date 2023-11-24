@@ -3,8 +3,11 @@ import React from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const [value, setValue] = React.useState("overview");
   const location = useLocation();
+  const [value, setValue] = React.useState(
+    location.pathname.split("/")[location.pathname.split("/").length - 1]
+  );
+
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
@@ -18,7 +21,7 @@ const Profile = () => {
   const tabs = [
     { label: "Overview", to: "overview" },
     { label: "Profile", to: "edit" },
-    { label: "Resume/Cv", to: "resume" },
+    { label: "Resume", to: "resume" },
   ];
 
   return (

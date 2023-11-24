@@ -4,10 +4,12 @@ import {
   Button,
   Card,
   CardContent,
+  Drawer,
   Modal,
   Typography,
 } from "@mui/material";
 import React from "react";
+import ApplicantDetail from "./ApplicantDetail";
 
 const style = {
   position: "absolute",
@@ -21,14 +23,31 @@ const style = {
   p: 4,
 };
 
+let anchor = "right";
+
 const ApplicantCard = ({ applicant }) => {
   const [open, setOpen] = React.useState(false);
+  const [state, setState] = React.useState({
+    [anchor]: false,
+  });
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div className="mb-[10px]">
-      <Card>
+      <Card onClick={toggleDrawer(true)}>
         <CardContent>
           <div className="flex">
             <div className="mr-[10px]">
@@ -64,6 +83,17 @@ const ApplicantCard = ({ applicant }) => {
           </Typography>
         </Box>
       </Modal>
+
+      <Drawer
+        anchor={anchor}
+        open={state[anchor]}
+        onClose={toggleDrawer(false)}
+      >
+        <ApplicantDetail
+          applicant={applicant}
+          onCloseDrawer={toggleDrawer(false)}
+        />
+      </Drawer>
     </div>
   );
 };

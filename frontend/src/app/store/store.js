@@ -5,6 +5,7 @@ import profileReducer from "../store/profileSlice";
 import educationReducer from "../store/educationSlice";
 import experienceReducer from "../store/experienceSlice";
 import commentReducer from "../store/commentSlice";
+import resumeReducer from "../store/resumeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     education: educationReducer,
     experience: experienceReducer,
     comments: commentReducer,
+    resume: resumeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

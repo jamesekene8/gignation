@@ -22,13 +22,11 @@ const EditIdealNextOpportunity = ({ profile }) => {
   let initialValues = {
     desiredSalary: profile.desiredSalary,
     desiredLocation: profile.desiredLocation,
-    remote: profile.remote,
   };
 
   const YupValidation = yup.object().shape({
     desiredSalary: yup.string().required("Desired Salary is Required"),
     desiredLocation: yup.string().required("Desired Location is Required"),
-    remote: yup.string().required("Desired Role is Required"),
   });
 
   const handleSubmit = async (values, props) => {

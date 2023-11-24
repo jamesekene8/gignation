@@ -1,6 +1,8 @@
 ﻿using Application.Photos.Command;
 using Application.Profiles.Command;
 using Application.Profiles.Query;
+using Application.Resume.Command;
+using Application.Resume.Query;
 using Application.User.Query;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +31,18 @@ namespace API.Controllers
 
 		[HttpPut("edit/uploadPhoto")]
 		public async Task<ActionResult> UploadUserProfilePhoto([FromForm] Add.Command command)
+		{
+			return HandleResult(await Mediator.Send(command));
+		}
+
+		[HttpGet("resume")]
+		public async Task<ActionResult> GetResume()
+		{
+			return HandleResult(await Mediator.Send(new GetResume.Query()));
+		}
+
+		[HttpPost("resume/upload")]
+		public async Task<ActionResult> UploadResume([FromForm] AddResume.Command command)
 		{
 			return HandleResult(await Mediator.Send(command));
 		}

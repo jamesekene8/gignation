@@ -3,6 +3,7 @@ import { Router } from "../routes/Routes";
 import { toast } from "react-toastify";
 import { store } from "../store/store";
 import { logoutUser } from "../store/accountSlice";
+import { PaginatedResult } from "../models/pagination";
 
 const sleep = (delay) => {
   return new Promise((resolve) => {
@@ -21,7 +22,15 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(
   async (response) => {
-    if (import.meta.env.dev) await sleep(6000);
+    await sleep(1000);
+    const pagination = response.headers["pagination"];
+    if (pagination) {
+      response.data = new PaginatedResult(
+        response.data,
+        JSON.parse(pagination)
+      );
+      return response;
+    }
     return response;
   },
   (error) => {
@@ -102,7 +111,7 @@ const Profile = {
 };
 
 const Jobs = {
-  list: () => requests.get("/job"),
+  list: (params) => axios.get("/job", { params }).then(responseBody),
   apply: (id, data) => requests.post(`/job/${id}/apply`, data),
   applied: () => requests.get("/user/applications"),
   retrieve: (id) => requests.post(`/job/${id}/retrieve/application`, {}),
@@ -111,6 +120,7 @@ const Jobs = {
   getJob: (id) => requests.get(`job/${id}`),
   delete: (id) => requests.del(`job/${id}`),
   updateJob: (id, job) => requests.put(`/job/${id}`, job),
+  search: (term) => requests.get(`/job?search=${term}`),
 };
 
 const Education = {
@@ -125,12 +135,22 @@ const Experience = {
   delete: (id) => requests.del(`/experience/${id}`, {}),
 };
 
+const Resume = {
+  add: (resume) => {
+    return axios.post("/user/resume/upload", resume, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
+  get: () => requests.get("/user/resume"),
+};
+
 const agent = {
   Account,
   Jobs,
   Profile,
   Education,
   Experience,
+  Resume,
 };
 
 export default agent;

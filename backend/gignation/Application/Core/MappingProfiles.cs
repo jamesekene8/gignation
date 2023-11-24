@@ -25,7 +25,13 @@ namespace Application.Core
 				.ForMember(d => d.FirstName, o => o.MapFrom(s => s.Applicant.FirstName))
 				.ForMember(d => d.Surname, o => o.MapFrom(s => s.Applicant.Surname))
 				.ForMember(d => d.Title, o => o.MapFrom(s => s.Applicant.Title))
-				.ForMember(d => d.Photo, o => o.MapFrom(s => s.Applicant.Image.Url));
+				.ForMember(d => d.Photo, o => o.MapFrom(s => s.Applicant.Image.Url))
+				.ForMember(d => d.Role, o => o.MapFrom(s => s.Applicant.DesiredRole))
+				.ForMember(d => d.Country, o => o.MapFrom(s => s.Applicant.Country))
+				.ForMember(d => d.Bio, o => o.MapFrom(s => s.Applicant.Bio))
+				.ForMember(d => d.YearsOfExperience, o => o.MapFrom(s => s.Applicant.YearsOfExperience))
+				.ForMember(d => d.DesiredSalary, o => o.MapFrom(s => s.Applicant.DesiredSalary))
+				.ForMember(d => d.Email, o => o.MapFrom(s => s.Applicant.Email));
 			CreateMap<AppUser, ProfileDto>()
 				.ForMember(d => d.profilePhoto, o => o.MapFrom(s => s.Image.Url));
 

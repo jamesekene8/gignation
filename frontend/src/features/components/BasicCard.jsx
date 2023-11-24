@@ -19,7 +19,7 @@ import {
 
 import { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { applyForJob } from "../../app/store/jobSlice";
+import { applyForJob, getJobs } from "../../app/store/jobSlice";
 import { useNavigate } from "react-router-dom";
 import { differenceInDays } from "date-fns";
 
@@ -44,7 +44,6 @@ export default function BasicCard({
   const [state, setState] = useState({
     bottom: false,
   });
-  const navigate = useNavigate();
 
   const letterRef = useRef();
   const dispatch = useDispatch();
@@ -55,9 +54,10 @@ export default function BasicCard({
       const data = { letter: letterRef.current?.value };
       const applyForJobFunc = async (id, data) => {
         await dispatch(applyForJob({ id, data }));
+        await dispatch(getJobs());
       };
       applyForJobFunc(id, data);
-      navigate("/jobs");
+
       toggleDrawer("bottom", false);
     },
     []
@@ -225,7 +225,11 @@ export default function BasicCard({
               {typeOfWork}
             </div>
           </Typography>
-          <Typography variant="body3">{description}</Typography>
+          <Typography variant="body3">
+            {description.length > 700
+              ? description.slice(0, 700) + "..."
+              : description}
+          </Typography>
           <div style={{ marginBottom: "20px" }}></div>
           <Typography sx={{ mb: 1.5, fontSize: 11 }} variant="body2">
             {/* {tags.map((val, k) => (
