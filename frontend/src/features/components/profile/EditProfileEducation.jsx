@@ -2,12 +2,11 @@ import {
   Avatar,
   Button,
   Card,
-  CardActions,
   CardContent,
   Grid,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AddUserEducation from "./AddEducation";
 import {

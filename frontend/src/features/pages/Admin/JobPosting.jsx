@@ -5,11 +5,10 @@ import {
   CardContent,
   Chip,
   Divider,
-  Drawer,
   Link,
   Typography,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ApplicantCard from "../../components/Admin/ApplicantCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +19,6 @@ import {
 } from "../../../app/store/jobSlice";
 import { Space, Spin } from "antd";
 import ChatBox from "../../components/ChatBox";
-import ApplicantDetail from "../../components/Admin/ApplicantDetail";
 
 let anchor = "right";
 

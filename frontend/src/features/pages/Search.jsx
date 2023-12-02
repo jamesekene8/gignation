@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { getSearchedJobs } from "../../app/store/jobSlice";
 import JobSkeleton from "../components/skeleton/JobSkeleton";
 import BasicCard from "../components/BasicCard";

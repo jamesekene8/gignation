@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getCurrentUser } from "../store/accountSlice";
 import { Space, Spin } from "antd";
 
 const RequireAuth = ({ allowedRoles }) => {

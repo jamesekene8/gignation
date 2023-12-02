@@ -8,7 +8,6 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
 
 const ApplicantDetail = ({ applicant, onCloseDrawer }) => {
   console.log(applicant);

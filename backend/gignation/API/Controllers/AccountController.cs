@@ -54,6 +54,7 @@ namespace API.Controllers
 			{
 				await _userManager.AddToRoleAsync(user, SD.Role_Freelancer);
 				var roles = await _userManager.GetRolesAsync(user);
+				await SetRefreshToken(user);
 				return CreateUserObject(user, roles);
 
 			}
@@ -73,6 +74,7 @@ namespace API.Controllers
 
 			if(result)
 			{
+				await SetRefreshToken(user);
 				return CreateUserObject(user, roles);
 			}
 
@@ -80,23 +82,64 @@ namespace API.Controllers
 
 		}
 
+		[HttpGet]
 		public async Task<ActionResult<UserDto>> GetCurrentUser()
 		{
 			var currentUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == User.FindFirstValue(ClaimTypes.Email));
 			var roles = await _userManager.GetRolesAsync(currentUser);
+			await SetRefreshToken(currentUser);
 			return CreateUserObject(currentUser, roles);
 		}
 
-		private UserDto CreateUserObject(AppUser user, IList<string> roles)
+
+		[HttpPost("refreshToken")]
+		public async Task<ActionResult<UserDto>> RefreshToken()
 		{
-			return new UserDto
+			var refreshToken = Request.Cookies["refreshToken"];
+			var user = await _userManager.Users.Include(r => r.RefreshTokens).FirstOrDefaultAsync(x => x.UserName == User.FindFirstValue(ClaimTypes.Name));
+			if(user == null) return Unauthorized();
+
+			var oldToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken);
+			if (oldToken != null && !oldToken.IsActive)
 			{
-				Email = user.Email,
-				Token = _tokenService.CreateToken(user),
-				Username = user.UserName,
-				Role = roles[0]
-			};
+				return Unauthorized();
+			}
+			if (oldToken != null) oldToken.Revoked = DateTime.UtcNow;
+
+			var roles = await _userManager.GetRolesAsync(user);
+
+			return CreateUserObject(user, roles);
+
+
 		}
 
-	}
+
+		private async Task SetRefreshToken(AppUser user)
+		{
+			var refreshToken = _tokenService.GenerateRefreshToken();
+			user.RefreshTokens.Add(refreshToken);
+			await _userManager.UpdateAsync(user);
+			var cookieOptions = new CookieOptions
+			{
+				HttpOnly = true,
+				Expires = DateTime.UtcNow.AddDays(7)
+			};
+
+			Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
+		}
+	
+
+
+	private UserDto CreateUserObject(AppUser user, IList<string> roles)
+			{
+				return new UserDto
+				{
+					Email = user.Email,
+					Token = _tokenService.CreateToken(user),
+					Username = user.UserName,
+					Role = roles[0]
+				};
+			}
+
+		}
 }

@@ -12,6 +12,6 @@ namespace Domain
 		public string Body { get; set; }
 		public AppUser Author { get; set; }
 		public Job Job { get; set; }
-		public DateTime CreatedAt { get; set; } = DateTime.Now;
+		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 	}
 }

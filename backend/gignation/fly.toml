@@ -1,0 +1,28 @@
+# fly.toml app configuration file generated for gignation on 2023-11-27T11:01:06Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "gignation"
+primary_region = "lhr"
+
+[build]
+  image = "jamesekene8/gignation:latest"
+
+[env]
+  ASPNETCORE_URLS = "http://+:8080"
+  Cloudinary__ApiKey = "417797143516273"
+  Cloudinary__CloudName = "dlapy1upp"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 1024

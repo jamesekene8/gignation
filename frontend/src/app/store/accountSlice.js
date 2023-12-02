@@ -10,6 +10,7 @@ const initialState = {
   loginError: null,
   registerError: null,
   error: null,
+  refreshTokenTimeout: null,
 };
 
 export const getCurrentUser = createAsyncThunk(

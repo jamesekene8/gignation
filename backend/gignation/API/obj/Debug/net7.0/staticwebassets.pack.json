@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\assets\\index-4fb5fdcf.css",
+      "PackagePath": "staticwebassets\\assets\\index-4fb5fdcf.css"
+    },
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\assets\\index-50739e45.js",
+      "PackagePath": "staticwebassets\\assets\\index-50739e45.js"
+    },
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\assets\\index-5a2cfbfb.js",
+      "PackagePath": "staticwebassets\\assets\\index-5a2cfbfb.js"
+    },
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\assets\\react.svg",
+      "PackagePath": "staticwebassets\\assets\\react.svg"
+    },
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\API\\wwwroot\\vite.svg",
+      "PackagePath": "staticwebassets\\vite.svg"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.API.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.API.props",
+      "PackagePath": "build\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.API.props",
+      "PackagePath": "buildMultiTargeting\\API.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.API.props",
+      "PackagePath": "buildTransitive\\API.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

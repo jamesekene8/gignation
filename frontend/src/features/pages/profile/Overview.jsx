@@ -1,4 +1,3 @@
-import React from "react";
 import Overview from "../../components/profile/Overview";
 
 const ProfileOverview = () => {

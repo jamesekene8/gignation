@@ -1,8 +1,8 @@
-import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../app/store/accountSlice";
-import { useNavigate } from "react-router-dom";
+
 import {
   Alert,
   Box,
@@ -20,7 +20,6 @@ const LoginForm = () => {
   const { loginError } = useSelector((state) => state.account);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const initialValues = {
     email: "",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IY6DSVzVBIDdIvZTIspesteUlLp43Dm0Wfr1v0+cUV7Hss/6LOipOGCS/q8CybvE2TYcv4eIFKt4SFcai2P5Ag==",
+  "dgSpecHash": "+/Hw7bvFGoWypiTqAESrGzrhLUI3PHqlcsOfUiT+fecNg2XVe6u3Wh41O2I4bfk4l5gk1U2UZhORE6b1J37VcQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\EKEJA\\Desktop\\Projects\\gignation\\backend\\gignation\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,8 @@
     "C:\\Users\\EKEJA\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\EKEJA\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\EKEJA\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\EKEJA\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
+    "C:\\Users\\EKEJA\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\EKEJA\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\EKEJA\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\EKEJA\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",

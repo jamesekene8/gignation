@@ -1,5 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import { Outlet, useLocation } from "react-router-dom";
 import JobPage from "./JobPage";
 

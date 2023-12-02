@@ -1,11 +1,8 @@
-import React from "react";
 import { ToastContainer } from "react-toastify";
 import NavBar from "./NavBar";
 import { Grid } from "@mui/material";
 import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
-import HomePage from "../../features/pages/HomePage";
-import Login from "../../features/pages/Login";
 
 const Layout = () => {
   return (

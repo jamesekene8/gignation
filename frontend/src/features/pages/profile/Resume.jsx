@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ErrorMessage, Form, Formik } from "formik";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { getResume, uploadResume } from "../../../app/store/resumeSlice";

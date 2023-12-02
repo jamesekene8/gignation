@@ -9,7 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { styled, alpha } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/accountSlice";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getProfile } from "../store/profileSlice";
 
 const StyledMenu = styled((props) => (

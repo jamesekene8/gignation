@@ -7,7 +7,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 import WorkIcon from "@mui/icons-material/Work";
-import ApartmentIcon from "@mui/icons-material/Apartment";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { retrieveJobApplication } from "../../app/store/jobSlice";

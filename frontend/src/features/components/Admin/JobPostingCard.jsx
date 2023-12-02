@@ -1,9 +1,9 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { Avatar } from "antd";
-import { format, differenceInDays } from "date-fns";
+import { differenceInDays } from "date-fns";
 
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const JobPostingCard = ({ job }) => {
   const navigate = useNavigate();

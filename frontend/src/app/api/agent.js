@@ -13,9 +13,13 @@ const sleep = (delay) => {
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
-axios.interceptors.request.use((config) => {
+export const axiosPublic = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
+
+axios.interceptors.request.use(async (config) => {
   if (store.getState().account.token && config.headers) {
-    config.headers.Authorization = `Bearer ${store.getState().account.token}`;
+    config.headers.Authorization = `Bearer ${store.getState().account?.token}`;
   }
   return config;
 });
@@ -59,12 +63,11 @@ axios.interceptors.response.use(
           status === 401 &&
           headers["www-authenticate"]?.startsWith('Bearer error="invalid_token')
         ) {
-          //store.userStore.logout();
           store.dispatch(logoutUser());
           toast.error("Session expired - Please login again");
         } else {
+          toast.error(data.message);
           throw data.message;
-          //toast.error(data.message);
         }
 
         break;
@@ -99,6 +102,7 @@ const Account = {
   current: () => requests.get("/account"),
   login: (user) => requests.post("/account/login", user),
   register: (user) => requests.post("/account/register", user),
+  refreshToken: () => requests.post("/account/refreshToken", {}),
 };
 
 const Profile = {

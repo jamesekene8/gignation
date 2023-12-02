@@ -20,7 +20,7 @@ import {
 import { useCallback, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { applyForJob, getJobs } from "../../app/store/jobSlice";
-import { useNavigate } from "react-router-dom";
+
 import { differenceInDays } from "date-fns";
 
 const direction = "bottom";

@@ -1,7 +1,6 @@
 import { Avatar, Card, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { differenceInDays } from "date-fns";
-import React from "react";
 
 const Comment = ({ comment }) => {
   return (

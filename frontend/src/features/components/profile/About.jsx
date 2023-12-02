@@ -1,4 +1,3 @@
-import React from "react";
 import DnsIcon from "@mui/icons-material/Dns";
 import { Typography } from "@mui/material";
 

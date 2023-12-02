@@ -1,8 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+
 import * as yup from "yup";
 import {
-  Avatar,
+
   Button,
   FormControl,
   Grid,

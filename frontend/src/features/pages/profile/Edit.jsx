@@ -1,4 +1,3 @@
-import React from "react";
 import EditProfile from "../../components/profile/EditProfile";
 
 const Edit = () => {

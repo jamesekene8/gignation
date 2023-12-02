@@ -1,4 +1,3 @@
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";

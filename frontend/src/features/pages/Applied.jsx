@@ -1,5 +1,5 @@
 import { Divider, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import AppliedJobs from "../components/AppliedJobs";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserJobApplications } from "../../app/store/jobSlice";

@@ -15,12 +15,12 @@ import Experience from "./Experience";
 import Education from "./Education";
 import About from "./About";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { getProfile } from "../../../app/store/profileSlice";
 import { Space, Spin } from "antd";
 
 const Overview = () => {
-  const { loading, profile } = useSelector((state) => state.profile);
+  const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
   useEffect(() => {

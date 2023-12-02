@@ -32,6 +32,7 @@ namespace Domain
 		public ICollection<Experience> Experiences { get; set; } = new List<Experience>();
 		public ICollection<Job> Jobs { get; set; } = new List<Job>();
 		public ICollection<JobApplicant> JobApplicants { get; set; }
+		public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 		
 
 	}

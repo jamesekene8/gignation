@@ -1,5 +1,4 @@
 import {
-  Button,
   Divider,
   FormControl,
   Grid,
@@ -10,13 +9,12 @@ import {
   Typography,
 } from "@mui/material";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
-import { createJob, getJobs } from "../../../app/store/jobSlice";
+import { createJob } from "../../../app/store/jobSlice";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
-import SimpleBackdrop from "../../components/skeleton/SimpleBackDrop";
 
 const CreateJobs = () => {
   const dispatch = useDispatch();

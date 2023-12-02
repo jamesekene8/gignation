@@ -10,7 +10,7 @@ import EditProfileExperience from "./EditProfileExperience";
 import EditIdealNextOpportunity from "./EditIdealNextOpportunity";
 
 const EditProfile = () => {
-  const { loading, profile } = useSelector((state) => state.profile);
+  const { profile } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
   useEffect(() => {
