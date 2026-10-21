@@ -49,3 +49,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# .NET build output and Visual Studio cache
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+
+# Local env files
+.env
+.env.*

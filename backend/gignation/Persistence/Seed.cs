@@ -20,16 +20,16 @@ namespace Persistence
 
 				await userManager.CreateAsync(new AppUser
 				{
-					UserName = "jamesekene8@gmail.com",
-					Email = "jamesekene8@gmail.com",
-					FirstName = "James",
-					Surname = "Uguna",
+					UserName = "admin@gignation.dev",
+					Email = "admin@gignation.dev",
+					FirstName = "Demo",
+					Surname = "Admin",
 					City = "Sunderland",
 					Country = "United Kingdom",
-					PhoneNumber = "07401326786",
-				}, "Kinggeezyis9?");
+					PhoneNumber = "",
+				}, "Pa$$w0rd");
 
-				AppUser user = context.AppUsers.FirstOrDefault(u => u.Email == "jamesekene8@gmail.com");
+				AppUser user = context.AppUsers.FirstOrDefault(u => u.Email == "admin@gignation.dev");
 				await userManager.AddToRoleAsync(user, "Admin");
 
 				await context.SaveChangesAsync();
